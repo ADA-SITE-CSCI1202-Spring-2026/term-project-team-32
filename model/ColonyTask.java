@@ -1,5 +1,7 @@
 package model;
 
+import resources.ResourceManager;
+
 
 public abstract class ColonyTask {
     protected String name;
@@ -31,6 +33,8 @@ public abstract class ColonyTask {
     public int getPenalty(){
         return penalty;
     }
+public abstract String getType();
+public abstract boolean performTask(ResourceManager rm);
 
 
 }
