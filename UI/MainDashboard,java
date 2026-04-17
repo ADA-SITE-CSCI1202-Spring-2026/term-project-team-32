@@ -1,0 +1,26 @@
+package ui;
+
+import engine.StationEngine;
+import model.ColonyTask;
+import persistence.SaveLoadService;
+import resources.Resource;
+import resources.ResourceManager;
+
+import javax.swing.*;
+import java.awt.*;
+
+public class MainDashboard extends JFrame {
+    private StationEngine engine;
+    private JTextArea logArea;
+    private DefaultListModel<String> queueModel;
+    private JLabel partsLabel, oxygenLabel, rationsLabel, creditsLabel;
+    private JComboBox<Resource> supplyDropdown;
+
+    public MainDashboard(StationEngine engine) {
+        this.engine = engine;
+        setTitle("Ares Base Command - Team 32");
+        setSize(900, 600);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLayout(new BorderLayout(10, 10));
+    }
+}
