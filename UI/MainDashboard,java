@@ -23,4 +23,11 @@ public class MainDashboard extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout(10, 10));
     }
-}
+}engine.setCallbacks(
+    message -> logMessage(message),
+    v -> refreshUI()
+);
+
+buildUI();
+refreshUI();
+engine.startEngine();
