@@ -30,4 +30,17 @@ public class MainDashboard extends JFrame {
 
 buildUI();
 refreshUI();
-engine.startEngine();
+engine.startEngine();JPanel resourcePanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
+resourcePanel.setBackground(Color.DARK_GRAY);
+
+partsLabel = createStyledLabel("Parts: 0");
+oxygenLabel = createStyledLabel("Oxygen: 0");
+rationsLabel = createStyledLabel("Rations: 0");
+creditsLabel = createStyledLabel("Credits: 0");
+creditsLabel.setForeground(Color.YELLOW);
+
+resourcePanel.add(partsLabel);
+resourcePanel.add(oxygenLabel);
+resourcePanel.add(rationsLabel);
+resourcePanel.add(creditsLabel);
+add(resourcePanel, BorderLayout.NORTH);
