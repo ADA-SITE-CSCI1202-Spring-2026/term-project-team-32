@@ -13,40 +13,46 @@ import java.util.Random;
 import java.util.function.Consumer;
 
 public class StationEngine {
-    // Core dependencies and state
     private ResourceManager resourceManager;
     private Queue<ColonyTask> taskQueue;
     private List<IProcessor> processors;
-    
-    // UI Callbacks
     private Consumer<String> uiLogger; 
     private Consumer<Void> uiUpdater;  
-    
-    // Utilities
     private Timer gameClock;
     private Random random = new Random();
-    private final int MAX_QUEUE_SIZE = 5;
+    private final int MAX_QUEUE_SIZE = 5; 
 
     public StationEngine(ResourceManager rm, List<IProcessor> processors) {
         this.resourceManager = rm;
         this.processors = processors;
         this.taskQueue = new LinkedList<>();
-        
-        // Timer is initialized but not started yet.
-        // It points to a method we will build in the next form.
         gameClock = new Timer(5000, e -> generateRandomTask());
     }
-
-    // --- SETUP & UTILITY METHODS ---
 
     public void setCallbacks(Consumer<String> logger, Consumer<Void> updater) {
         this.uiLogger = logger;
         this.uiUpdater = updater;
     }
 
+    public void startEngine() { 
+        gameClock.start(); 
+    }
+
+    private void generateRandomTask() {
+        int rng = random.nextInt(3);
+        int parts = random.nextInt(3) + 1;
+        ColonyTask newTask;
+        
+        if (rng == 0) newTask = new EngineeringTask("Hull Breach Lvl " + parts, parts * 2);
+        else if (rng == 1) newTask = new LifeSupportTask("Oxygen Leak Lvl " + parts, parts * 2);
+        else newTask = new ResearchTask("Analyze Martian Soil", parts * 3);
+        
+        taskQueue.add(newTask);
+        
+        if (uiLogger != null) uiLogger.accept("ALERT: " + newTask.getName() + " [" + newTask.getTaskType() + "] added.");
+        if (uiUpdater != null) uiUpdater.accept(null);
+    }
+
     public Queue<ColonyTask> getTaskQueue() { return taskQueue; }
     public ResourceManager getResourceManager() { return resourceManager; }
-    
-    // Placeholder for the next stage
-    private void generateRandomTask() {}
 }
