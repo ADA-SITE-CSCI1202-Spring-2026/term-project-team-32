@@ -44,3 +44,12 @@ resourcePanel.add(oxygenLabel);
 resourcePanel.add(rationsLabel);
 resourcePanel.add(creditsLabel);
 add(resourcePanel, BorderLayout.NORTH);
+
+logArea = new JTextArea();
+logArea.setEditable(false);
+logArea.setBackground(Color.BLACK);
+logArea.setForeground(Color.GREEN);
+logArea.setFont(new Font("Monospaced", Font.PLAIN, 14));
+JScrollPane logScroll = new JScrollPane(logArea);
+logScroll.setBorder(BorderFactory.createTitledBorder("System Log"));
+add(logScroll, BorderLayout.CENTER);
