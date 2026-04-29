@@ -61,3 +61,54 @@ JScrollPane queueScroll = new JScrollPane(queueList);
 queueScroll.setPreferredSize(new Dimension(300, 0));
 queueScroll.setBorder(BorderFactory.createTitledBorder("Task Queue (Max 5)"));
 add(queueScroll, BorderLayout.EAST);
+JPanel bottomWrapper = new JPanel(new BorderLayout());
+
+JPanel supplyPanel = new JPanel(new FlowLayout());
+supplyPanel.setBorder(BorderFactory.createTitledBorder("Supply Chain (Cost: 100 Cr for 10 Units)"));
+
+Resource[] buyableItems = {Resource.SPARE_PARTS, Resource.OXYGEN, Resource.RATIONS};
+supplyDropdown = new JComboBox<>(buyableItems);
+JButton buyBtn = new JButton("Buy Selected Supply");
+
+buyBtn.addActionListener(e -> {
+    Resource selected = (Resource) supplyDropdown.getSelectedItem();
+    engine.buySupplies(selected);
+});
+
+supplyPanel.add(new JLabel("Select Resource: "));
+supplyPanel.add(supplyDropdown);
+supplyPanel.add(buyBtn);
+
+JPanel controlPanel = new JPanel(new FlowLayout());
+JButton execBtn = new JButton("Execute Top Task");
+JButton saveBtn = new JButton("Save Game");
+JButton loadBtn = new JButton("Load Game");
+
+execBtn.addActionListener(e -> engine.executeNextTask());
+
+saveBtn.addActionListener(e -> {
+    try {
+        SaveLoadService.saveGame(engine.getResourceManager());
+        logMessage("SYSTEM: Game Saved Successfully.");
+    } catch (Exception ex) {
+        logMessage("ERROR: " + ex.getMessage());
+    }
+});
+
+loadBtn.addActionListener(e -> {
+    try {
+        SaveLoadService.loadGame(engine.getResourceManager());
+        refreshUI();
+        logMessage("SYSTEM: Game Loaded Successfully.");
+    } catch (Exception ex) {
+        logMessage("ERROR: Save file not found.");
+    }
+});
+
+controlPanel.add(execBtn);
+controlPanel.add(saveBtn);
+controlPanel.add(loadBtn);
+
+bottomWrapper.add(supplyPanel, BorderLayout.NORTH);
+bottomWrapper.add(controlPanel, BorderLayout.SOUTH);
+add(bottomWrapper, BorderLayout.SOUTH);
