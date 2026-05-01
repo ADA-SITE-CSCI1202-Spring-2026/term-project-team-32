@@ -1,31 +1,33 @@
 package main;
 
-import engine.StationEngine;//will be added later
-import java.awt.Component;
-import java.util.ArrayList;
-import javax.swing.SwingUtilities;
-import processor.EngineeringBay;//will be added later
-import processor.MedicalWard;//will be added later
-import processor.ScienceLab;// will be added later
-import resources.ResourceManager;// will be added later
+import engine.StationEngine;
+import processor.EngineeringBay;
+import processor.IProcessor;
+import processor.MedicalWard;
+import processor.ScienceLab;
+import resources.ResourceManager;
 import ui.MainDashboard;
 
+import javax.swing.SwingUtilities;
+import java.util.ArrayList;
+import java.util.List;
+
 public class AresBaseApp {
-   public AresBaseApp() {
-   }
+    public static void main(String[] args) {
+        ResourceManager resourceManager = new ResourceManager();
 
-   public static void main(String[] var0) {
-      ResourceManager var1 = new ResourceManager();
-      ArrayList var2 = new ArrayList();
-      var2.add(new EngineeringBay());
-      var2.add(new MedicalWard());
-      var2.add(new ScienceLab());
-      StationEngine var3 = new StationEngine(var1, var2);
-      SwingUtilities.invokeLater(() -> {
-         MainDashboard var1 = new MainDashboard(var3);
-         var1.setLocationRelativeTo((Component)null);
-         var1.setVisible(true);
-      });
-   }
+   
+        List<IProcessor> processors = new ArrayList<>();
+        processors.add(new EngineeringBay());
+        processors.add(new MedicalWard());
+        processors.add(new ScienceLab()); 
+
+        StationEngine engine = new StationEngine(resourceManager, processors);
+
+        SwingUtilities.invokeLater(() -> {
+            MainDashboard dashboard = new MainDashboard(engine);
+            dashboard.setLocationRelativeTo(null); 
+            dashboard.setVisible(true);
+        });
+    }
 }
-

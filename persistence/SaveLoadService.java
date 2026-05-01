@@ -1,10 +1,7 @@
 package persistence;
-//this code will not work for now
-//ResourceManager.java will be added later. 
-//then the code will work
 
 import resources.Resource;
-import resources.ResourceManager;//coming soon...
+import resources.ResourceManager;
 
 import java.io.*;
 
