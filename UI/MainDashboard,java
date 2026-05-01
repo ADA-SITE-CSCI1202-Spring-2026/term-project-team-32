@@ -111,4 +111,25 @@ controlPanel.add(loadBtn);
 
 bottomWrapper.add(supplyPanel, BorderLayout.NORTH);
 bottomWrapper.add(controlPanel, BorderLayout.SOUTH);
-add(bottomWrapper, BorderLayout.SOUTH);
+add(bottomWrapper, BorderLayout.SOUTH);private JLabel createStyledLabel(String text) {
+    JLabel label = new JLabel(text);
+    label.setForeground(Color.WHITE);
+    label.setFont(new Font("Arial", Font.BOLD, 16));
+    return label;
+}
+
+private void logMessage(String msg) {
+    logArea.append("> " + msg + "\n");
+    logArea.setCaretPosition(logArea.getDocument().getLength());
+}private void refreshUI() {
+    ResourceManager rm = engine.getResourceManager();
+    partsLabel.setText("Spare Parts: " + rm.getAmount(Resource.SPARE_PARTS));
+    oxygenLabel.setText("Oxygen: " + rm.getAmount(Resource.OXYGEN));
+    rationsLabel.setText("Rations: " + rm.getAmount(Resource.RATIONS));
+    creditsLabel.setText("Credits: " + rm.getAmount(Resource.CREDITS));
+
+    queueModel.clear();
+    for (ColonyTask task : engine.getTaskQueue()) {
+        queueModel.addElement(task.getName() + " [" + task.getTaskType() + "] Cost: " + task.getreqParts() + " Parts");
+    }
+}
