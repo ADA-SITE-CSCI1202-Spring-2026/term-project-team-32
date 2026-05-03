@@ -9,7 +9,7 @@ public class EngineeringTask extends ColonyTask {
     }
     
 @Override
-public String getType(){ return "~Engineering Task~";}
+public String getTaskType(){ return "~Engineering Task~";}
 
 @Override
 public boolean performTask(ResourceManager rm) {

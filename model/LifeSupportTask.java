@@ -8,7 +8,7 @@ public class LifeSupportTask extends ColonyTask {
         super(name, reqParts, 150, 2, 200);
     }
 @Override
-public String getType(){ return "~Life Support Task~";}
+public String getTaskType(){ return "~Life Support Task~";}
 
 @Override
 public boolean performTask(ResourceManager rm) {

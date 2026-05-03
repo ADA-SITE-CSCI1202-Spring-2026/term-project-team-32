@@ -33,7 +33,7 @@ public abstract class ColonyTask {
     public int getPenalty(){
         return penalty;
     }
-public abstract String getType();
+public abstract String getTaskType();
 public abstract boolean performTask(ResourceManager rm);
 
 

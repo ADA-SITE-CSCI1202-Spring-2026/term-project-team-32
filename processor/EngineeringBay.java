@@ -1,6 +1,7 @@
-package resources;
+package processor;
 
 import model.ColonyTask;
+import resources.ResourceManager;
 
 public class EngineeringBay implements IProcessor {
     @Override
